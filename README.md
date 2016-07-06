@@ -26,4 +26,4 @@
 ## todo:
   - replace print with io.write
   - fix strange indenting when key is bigger than tab
-  - make the internal function call independent of the name
+~~  - make the internal function call independent of the name ~~
