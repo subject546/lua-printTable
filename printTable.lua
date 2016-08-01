@@ -1,6 +1,5 @@
 local function printTable(t,indent)
-      print(t,indent)
-          
+
       local function printTableFunc(t,indent)
         if indent == nil then indent = "" end
         for key,value in pairs(t) do
