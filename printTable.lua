@@ -2,10 +2,11 @@ local function printTable(t,indent)
 
       local function printTableFunc(t,indent)
         if indent == nil then indent = "" end
+        local returnTable = {}
         for key,value in pairs(t) do
           if type(value) == "table" then
             local indent2 = indent.."["..key.."]"
-            return value,indent2
+            table.insert(returnTable,{["value"]=value,["indent"]=indent2})
           elseif type(value) == "string" or type(value) == "number" then
             local prefix = ""
             prefix = indent
@@ -21,14 +22,19 @@ local function printTable(t,indent)
             print(prefix.."["..key.."]".." -> ","","TYPE == "..value)
           end
         end 
+        return returnTable
       end
       
       local function callLocal(value,indent2)
         if value ~= nil then
           if type(value) == "table" then
             local currentValue,currentIndent = "",""
-            currentValue,currentIndent = printTableFunc(value,indent2)
-            callLocal(currentValue,currentIndent)
+            returnedTable = printTableFunc(value,indent2)
+            if returnedTable ~= nil then
+              for key,t in pairs(returnedTable) do
+                callLocal(t.value,t.indent)
+              end
+            end
           elseif type(value) == "string" or type(value) == "number" then
             local prefix = ""
             prefix = indent
